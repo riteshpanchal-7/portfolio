@@ -1,0 +1,609 @@
+<title>Ritesh Panchal Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: { bg: "var(--bg)", card: "var(--card)", line: "var(--line)", fg: "var(--fg)", muted: "var(--muted)", accent: "var(--accent)" },
+        fontFamily: {
+          sans: ["Plus Jakarta Sans", "Segoe UI", "system-ui", "sans-serif"],
+          mono: ["IBM Plex Mono", "ui-monospace", "Menlo", "monospace"]
+        }
+      }
+    }
+  };
+</script>
+
+<style>
+  /* Layout concept: deep indigo-black canvas with a faint grid and violet glow; floating pill nav, centred hero, bento grid of glass cards, then centred section headings over card grids. Single dark look by design. */
+  :root {
+    --bg: #05061b;
+    --card: #0b0d28;
+    --card-2: #10133a;
+    --line: rgba(255, 255, 255, 0.09);
+    --fg: #f2f2ff;
+    --muted: #9ba0c6;
+    --accent: #c9a8ff;
+    --accent-strong: #8e63ff;
+    --accent-ink: #14092e;
+    --good: #7ee0b5;
+    --warn: #f5c36b;
+    --glow: rgba(142, 99, 255, 0.35);
+    color-scheme: dark;
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+  body {
+    background: var(--bg); color: var(--fg);
+    font-family: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+    padding-block: 0;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .page-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(60rem 30rem at 50% -8%, rgba(142, 99, 255, 0.28), transparent 70%),
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 64px 64px,
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 64px 64px;
+    -webkit-mask-image: linear-gradient(#000 55%, transparent 100%); mask-image: linear-gradient(#000 55%, transparent 100%);
+  }
+  main, footer { position: relative; z-index: 1; }
+  h1, h2, h3 { text-wrap: balance; letter-spacing: -0.025em; line-height: 1.12; font-weight: 800; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+  .wrap { max-width: 72rem; margin-inline: auto; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+  .hl { color: var(--accent); }
+  .eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.74rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .section { padding-block: 4.5rem; }
+  .section-head { text-align: center; margin-bottom: 2.5rem; }
+  .section-title { font-size: clamp(1.9rem, 4.6vw, 2.9rem); margin-top: 0.6rem; }
+  .section-lead { color: var(--muted); max-width: 38rem; margin: 0.8rem auto 0; }
+
+  /* Floating pill nav */
+  .pill-nav { position: fixed; z-index: 50; left: 50%; transform: translateX(-50%);
+    top: calc(env(safe-area-inset-top, 0px) + 14px); max-width: calc(100% - 32px);
+    display: flex; gap: 0.1rem; padding: 0.35rem; border-radius: 999px; overflow-x: auto;
+    background: rgba(12, 14, 44, 0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--line); box-shadow: 0 10px 40px -12px rgba(0,0,0,.6); scrollbar-width: none; }
+  .pill-nav::-webkit-scrollbar { display: none; }
+  .pill-nav a { position: relative; text-decoration: none; font-size: 0.85rem; font-weight: 500; color: var(--muted); padding: 0.4rem 0.95rem; border-radius: 999px; white-space: nowrap; transition: color .15s, background .15s; }
+  .pill-nav a:hover { color: var(--fg); }
+  .pill-nav a[aria-current="true"] { color: var(--fg); background: rgba(255,255,255,0.06); }
+  .pill-nav a[aria-current="true"]::after { content: ""; position: absolute; left: 50%; bottom: 2px; width: 4px; height: 4px; border-radius: 999px; background: var(--accent); transform: translateX(-50%); }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.3rem; border-radius: 999px; font-weight: 600; font-size: 0.92rem; text-decoration: none; border: 1px solid var(--line); background: rgba(255,255,255,0.04); color: var(--fg); cursor: pointer; font-family: inherit; transition: transform .2s, border-color .2s, box-shadow .2s, background .2s; }
+  .btn:hover { border-color: var(--accent); transform: translateY(-2px); background: rgba(201,168,255,0.08); }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), #a681ff); color: var(--accent-ink); border-color: transparent; }
+  .btn-primary:hover { box-shadow: 0 10px 30px -6px var(--glow); background: linear-gradient(135deg, #d8bdff, #b392ff); }
+  .btn-sm { padding: 0.5rem 0.95rem; font-size: 0.83rem; }
+
+  /* Glass cards */
+  .glass { position: relative; background: linear-gradient(150deg, var(--card-2) 0%, var(--card) 55%); border: 1px solid var(--line); border-radius: 22px; min-width: 0; overflow: hidden; }
+  .glass-pad { padding: 1.5rem; }
+  .glass h3 { font-size: 1.35rem; }
+  .glass p.sub { color: var(--muted); font-size: 0.93rem; margin-top: 0.5rem; }
+
+  /* Hero */
+  .hero h1 { font-size: clamp(2.3rem, 7vw, 4.6rem); }
+  .hero-sub { color: var(--muted); font-size: 1.05rem; }
+
+  /* Bento */
+  .query-code { margin: 0; padding: 0.9rem 1.1rem; font-size: 0.78rem; line-height: 1.7; overflow-x: auto; background: rgba(0,0,0,0.28); border: 1px solid var(--line); border-radius: 12px; }
+  .k { color: var(--accent); } .f { color: #8fb7ff; } .s { color: var(--warn); } .c { color: #6f759d; }
+  .chart svg { width: 100%; height: auto; display: block; }
+  .chart-text { fill: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 9px; }
+  .zone { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.8rem; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.04); font-size: 0.85rem; font-weight: 500; }
+  .zone i { width: 0.5rem; height: 0.5rem; border-radius: 999px; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+  .stat { padding: 0.8rem 0.9rem; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid var(--line); }
+  .stat b { display: block; font-size: 1.35rem; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1.2; }
+  .stat span { color: var(--muted); font-size: 0.78rem; }
+
+  /* Skills */
+  .chip { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.9rem; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.04); color: var(--fg); font: 500 0.88rem "Plus Jakarta Sans", sans-serif; cursor: pointer; transition: border-color .15s, background .15s, transform .15s, color .15s; }
+  .chip:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .chip .lvl { width: 0.45rem; height: 0.45rem; border-radius: 999px; background: var(--accent); }
+  .chip[aria-pressed="true"] .lvl { background: var(--accent-ink); }
+  .skill-detail { min-height: 4.6rem; margin-top: 1rem; border: 1px dashed rgba(255,255,255,0.16); border-radius: 18px; padding: 1rem 1.3rem; color: var(--muted); text-align: center; }
+  .skill-detail strong { color: var(--fg); }
+
+  /* Projects */
+  .card { display: flex; flex-direction: column; gap: 1rem; padding: 1rem 1rem 1.3rem; transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease; }
+  .card:hover { transform: translateY(-8px); border-color: rgba(201,168,255,0.55); box-shadow: 0 28px 50px -26px var(--glow), 0 0 0 1px rgba(201,168,255,0.25); }
+  .card .body { display: flex; flex-direction: column; gap: 0.9rem; padding: 0 0.5rem; flex: 1; }
+  .card h3 { font-size: 1.25rem; }
+  .thumb { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: linear-gradient(160deg, #2a1b63 0%, #120f3d 60%, #0b0d28 100%); }
+  .thumb svg { display: block; width: 100%; height: auto; transition: transform .5s ease; }
+  .card:hover .thumb svg { transform: scale(1.05); }
+  .kv { display: grid; grid-template-columns: 4.6rem 1fr; gap: 0.3rem 0.75rem; font-size: 0.9rem; margin: 0; }
+  .kv dt { font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 0.25rem; }
+  .kv dd { margin: 0; color: #cfd2ee; }
+  .kv dd.result { color: var(--fg); font-weight: 600; }
+  .metric { display: inline-flex; align-items: baseline; gap: 0.45rem; color: var(--accent); font-weight: 800; font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+  .metric small { font-size: 0.78rem; font-weight: 500; color: var(--muted); }
+  .tag { display: inline-block; font-size: 0.68rem; font-family: "IBM Plex Mono", monospace; padding: 0.1rem 0.55rem; border: 1px solid var(--warn); color: var(--warn); border-radius: 999px; }
+  .tech { padding: 0.2rem 0.65rem; font-size: 0.76rem; font-family: "IBM Plex Mono", monospace; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.04); color: var(--muted); cursor: pointer; transition: color .15s, border-color .15s, background .15s; }
+  .tech:hover { color: var(--fg); border-color: var(--accent); }
+  .tech[aria-pressed="true"] { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+
+  /* Timeline */
+  .tabs { display: inline-flex; padding: 0.3rem; gap: 0.25rem; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,0.03); }
+  .tab { padding: 0.5rem 1.2rem; border-radius: 999px; border: 0; background: transparent; color: var(--muted); font: 600 0.88rem "Plus Jakarta Sans", sans-serif; cursor: pointer; }
+  .tab[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); }
+  .timeline { position: relative; list-style: none; margin: 0 auto; padding: 0 0 0 1.9rem; display: grid; gap: 1.25rem; max-width: 46rem; }
+  .timeline::before { content: ""; position: absolute; left: 0.5rem; top: 0.5rem; bottom: 0.5rem; width: 2px; background: linear-gradient(var(--accent), rgba(201,168,255,0.05)); }
+  .t-item { position: relative; padding: 1.2rem 1.4rem; border-radius: 18px; }
+  .t-item::before { content: ""; position: absolute; left: -1.9rem; top: 1.55rem; width: 0.95rem; height: 0.95rem; border-radius: 999px; background: var(--bg); border: 2px solid var(--accent); }
+  .t-item.done::before { background: var(--accent); box-shadow: 0 0 14px var(--glow); }
+  .t-item h3 { font-size: 1.08rem; }
+  .t-meta { color: var(--muted); font-size: 0.85rem; margin-top: 0.15rem; }
+  .t-item ul { margin: 0.7rem 0 0; padding-left: 1.1rem; color: #cfd2ee; font-size: 0.92rem; }
+  .t-item li + li { margin-top: 0.25rem; }
+  .status { display: inline-block; font-size: 0.7rem; font-family: "IBM Plex Mono", monospace; padding: 0.1rem 0.6rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+  .status.ok { color: var(--good); border-color: var(--good); }
+  .status.wip { color: var(--accent); border-color: var(--accent); }
+
+  /* Contact */
+  .field label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 0.35rem; }
+  .field input, .field textarea { width: 100%; background: rgba(0,0,0,0.3); color: var(--fg); border: 1px solid var(--line); border-radius: 14px; padding: 0.75rem 0.95rem; font: inherit; }
+  .field input:focus, .field textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .info-row { display: flex; gap: 0.85rem; align-items: center; padding: 1rem 1.1rem; border-radius: 18px; }
+  .info-row .label { font-size: 0.7rem; color: var(--muted); font-family: "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .1em; }
+  .toast { position: fixed; left: 50%; bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: var(--fg); color: var(--bg); padding: 0.6rem 1.1rem; border-radius: 999px; font-size: 0.88rem; font-weight: 500; transition: opacity .2s, transform .2s; z-index: 70; max-width: calc(100% - 32px); }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 0.86rem; padding-block: 1.75rem calc(1.75rem + env(safe-area-inset-bottom, 0px)); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .card, .chip, .btn, .tech, .thumb svg { transition: none; }
+    .card:hover, .chip:hover, .btn:hover { transform: none; }
+    .card:hover .thumb svg { transform: none; }
+  }
+</style>
+
+<div class="page-bg" aria-hidden="true"></div>
+
+<nav class="pill-nav" aria-label="Sections">
+  <a href="#about" data-sec="about">About</a>
+  <a href="#skills" data-sec="skills">Skills</a>
+  <a href="#projects" data-sec="projects">Projects</a>
+  <a href="#journey" data-sec="journey">Experience</a>
+  <a href="#contact" data-sec="contact">Contact</a>
+</nav>
+
+<main id="top" class="wrap">
+
+  <!-- HERO -->
+  <section class="hero text-center pt-32 pb-16 md:pt-40">
+    <p class="eyebrow">Data analyst · Open to remote roles in the US and Europe</p>
+    <h1 class="mt-5 mx-auto max-w-4xl">Transforming Raw Data into <span class="hl">Business Decisions</span></h1>
+    <p class="hero-sub mt-6">Hi! I'm Ritesh, a data analyst based in India.</p>
+    <p class="text-muted mt-2 mx-auto max-w-xl">SQL, Python and Power BI, backed by three years of banking operations where every file and ratio was audited.</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a id="work-link" class="btn btn-primary" href="#" target="_blank" rel="noopener">See my work
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+      <a id="resume-btn" class="btn" href="resume.pdf" target="_blank" rel="noopener" download="Ritesh_Panchal_Resume.pdf">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
+        Download Resume
+      </a>
+      <a class="btn" id="gh-link" href="#" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+        GitHub
+      </a>
+      <a class="btn" id="li-link" href="#" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </section>
+
+  <!-- ABOUT: bento -->
+  <section id="about" class="pb-8">
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+
+      <article class="glass glass-pad md:col-span-2 lg:row-span-2 flex flex-col gap-4">
+        <div>
+          <p class="eyebrow">How I work</p>
+          <h3 class="mt-2">I turn messy files into <span class="hl">clear numbers</span></h3>
+          <p class="sub">Start with the business question, write the query, then chart the one number that answers it.</p>
+        </div>
+<pre class="query-code mono"><span class="c">-- avg days from application to disbursement</span>
+<span class="k">SELECT</span> <span class="f">DATE_TRUNC</span>(<span class="s">'month'</span>, closed_at) <span class="k">AS</span> month,
+       <span class="f">AVG</span>(closed_at - received_at) <span class="k">AS</span> avg_days_to_close
+<span class="k">FROM</span>   loan_files
+<span class="k">WHERE</span>  status = <span class="s">'DISBURSED'</span>
+<span class="k">GROUP BY</span> <span class="s">1</span> <span class="k">ORDER BY</span> <span class="s">1</span>;</pre>
+        <div class="chart mt-auto">
+          <div class="flex items-baseline justify-between gap-3 mb-1">
+            <span class="text-sm font-semibold">Average days to close a file</span>
+            <span class="mono text-xs text-muted">illustrative output</span>
+          </div>
+          <svg id="hero-chart" viewBox="0 0 340 140" role="img" aria-label="Line chart: average days to close a file falls from 9.9 to 7.9 over eight months"></svg>
+        </div>
+      </article>
+
+      <article class="glass glass-pad flex flex-col justify-between gap-5">
+        <div>
+          <h3>I'm flexible with time zone communications</h3>
+          <p class="sub">Based in India, and happy to overlap with US and European working hours.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="zone"><i></i>India</span><span class="zone"><i></i>Europe</span><span class="zone"><i></i>US</span>
+        </div>
+      </article>
+
+      <article class="glass glass-pad flex flex-col gap-4">
+        <div>
+          <h3>Three years inside a bank</h3>
+          <p class="sub">Domain experience that makes BFSI data easier for me to read.</p>
+        </div>
+        <div class="grid grid-cols-3 gap-2 mt-auto">
+          <div class="stat"><b>200+</b><span>customers tracked</span></div>
+          <div class="stat"><b>20-50</b><span>files a month</span></div>
+          <div class="stat"><b>100%</b><span>TAT compliance</span></div>
+        </div>
+      </article>
+
+      <article class="glass glass-pad flex flex-col sm:flex-row sm:items-center justify-between gap-5 md:col-span-2 lg:col-span-3">
+        <h3>Do you want to start a project together?</h3>
+        <a class="btn btn-primary self-start" href="#contact">Get in touch</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section">
+    <div class="section-head">
+      <p class="eyebrow">Skill matrix</p>
+      <h2 class="section-title">The tools I reach for <span class="hl">first</span></h2>
+      <p class="section-lead">Tap a badge to see what I use it for and which projects feature it.</p>
+    </div>
+    <div id="skill-groups" class="grid gap-4 md:grid-cols-2 lg:grid-cols-4"></div>
+    <div id="skill-detail" class="skill-detail" aria-live="polite"></div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+    <div class="section-head">
+      <p class="eyebrow">Featured projects</p>
+      <h2 class="section-title">A small selection of <span class="hl">recent work</span></h2>
+      <p class="section-lead">Each project follows one pattern: the business problem, what I built, and the number that moved.</p>
+      <button id="clear-filter" class="btn btn-sm mt-4" type="button" hidden>Clear filter</button>
+    </div>
+    <div id="project-grid" class="grid gap-5 md:grid-cols-2 lg:grid-cols-3"></div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section id="journey" class="section">
+    <div class="section-head">
+      <p class="eyebrow">Experience and certifications</p>
+      <h2 class="section-title">My <span class="hl">journey</span> so far</h2>
+      <div class="tabs mt-6" role="tablist" aria-label="Timeline view">
+        <button class="tab" role="tab" id="tab-exp" aria-selected="true" aria-controls="timeline" data-view="experience" type="button">Experience</button>
+        <button class="tab" role="tab" id="tab-cert" aria-selected="false" aria-controls="timeline" data-view="certifications" type="button">Certifications</button>
+      </div>
+    </div>
+    <ol id="timeline" class="timeline" role="tabpanel" aria-labelledby="tab-exp"></ol>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="section-head">
+      <p class="eyebrow">Contact</p>
+      <h2 class="section-title">Let's talk about <span class="hl">your data</span></h2>
+      <p class="section-lead">I reply within one working day, and I can overlap with US and European hours.</p>
+    </div>
+    <div class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+      <div class="grid gap-3 content-start min-w-0">
+        <div class="glass info-row">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true" class="shrink-0"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          <div class="min-w-0 flex-1">
+            <div class="label">Email</div>
+            <div id="email-text" class="break-all"></div>
+          </div>
+          <button id="copy-email" class="btn btn-sm" type="button">Copy</button>
+        </div>
+        <div class="glass info-row">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true" class="shrink-0"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <div class="min-w-0">
+            <div class="label">Location</div>
+            <div>Remote / India (Open to US/EU Time Zones)</div>
+          </div>
+        </div>
+      </div>
+
+      <form id="contact-form" class="glass glass-pad grid gap-4 min-w-0" novalidate>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        </div>
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+        <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" name="message" rows="5" required></textarea></div>
+        <div class="flex flex-wrap items-center gap-3">
+          <button class="btn btn-primary" type="submit">Send message</button>
+          <span id="form-status" class="text-sm text-muted" role="status"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap flex flex-wrap justify-between gap-2">
+    <span>© <span id="year"></span> Ritesh Panchal</span>
+    <span class="mono">Built with HTML, Tailwind CSS and vanilla JavaScript</span>
+  </div>
+</footer>
+
+<div id="toast" class="toast" role="status"></div>
+
+<script>
+/* ============ CONFIG: edit this block, nothing else needs to change ============ */
+const CONFIG = {
+  name: "Ritesh Panchal",
+  email: "7ritesh.panchal@gmail.com",
+  github: "https://github.com/your-username",          // TODO: your GitHub profile
+  linkedin: "https://www.linkedin.com/in/your-profile", // TODO: your LinkedIn profile
+  formEndpoint: "https://formsubmit.co/ajax/7ritesh.panchal@gmail.com"  // messages are forwarded to this inbox (activate once, see README steps)
+};
+
+const SKILLS = [
+  { group: "Languages", items: [
+    { name: "SQL", use: "Joins, window functions and CTEs to turn raw tables into analysis-ready datasets.", tech: "SQL" },
+    { name: "Python", use: "pandas and NumPy for cleaning, exploratory analysis and statistical checks, Matplotlib for quick visuals.", tech: "Python" } ]},
+  { group: "BI Tools", items: [
+    { name: "Power BI", use: "Data models, DAX measures and dashboards that leadership can read in under a minute.", tech: "Power BI" },
+    { name: "Tableau", use: "Interactive views and calculated fields for exploring trends by segment.", tech: "Tableau" } ]},
+  { group: "Core Analysis", items: [
+    { name: "Advanced Excel", use: "PivotTables, Power Query, XLOOKUP and scenario models for fast first-pass answers.", tech: "Excel" },
+    { name: "Statistics", use: "Hypothesis tests, confidence intervals, correlation and A/B test reading.", tech: "Statistics" } ]},
+  { group: "Domain", items: [
+    { name: "Banking and BFSI", use: "Loan processing, KYC, insurance claims and audit-ready reporting at Jana Small Finance Bank (3 years).", tech: null } ]}
+];
+
+/* Sample content: replace titles, summaries, metrics and links with your real projects, then set sample:false. */
+const PROJECTS = [
+  { title: "Loan Pipeline and TAT Dashboard", sample: true, preview: "bars",
+    problem: "Branch managers could not see which loan files were stuck, so closure took longer than promised to customers.",
+    action: "Modelled 12 months of file data in SQL and built a Power BI dashboard with stage-wise ageing and an overdue-file alert.",
+    result: "Showed a path to cut average file-to-closure time by about 20%.",
+    metric: "-20%", metricLabel: "days to close",
+    stack: ["SQL", "Power BI", "Excel"], live: "#", repo: "#" },
+  { title: "Apparel Sales and Inventory Analysis", sample: true, preview: "line",
+    problem: "A cotton T-shirt brand was over-stocking slow sizes and running out of its best sellers.",
+    action: "Cleaned order and stock data with pandas, ran ABC and sell-through analysis, and published a Tableau view by size and colour.",
+    result: "Identified the top 20% of SKUs driving most revenue and cut projected dead stock by 30%.",
+    metric: "-30%", metricLabel: "dead stock",
+    stack: ["Python", "pandas", "Tableau"], live: "#", repo: "#" },
+  { title: "Insurance Cross-Sell Propensity", sample: true, preview: "hbars",
+    problem: "Sales teams offered insurance to every bank customer, which wasted calls and annoyed uninterested clients.",
+    action: "Engineered customer features in SQL, compared segments with statistical tests in Python, and ranked clients by likelihood to buy.",
+    result: "The top three segments converted about 2.4x better than the average call list.",
+    metric: "2.4x", metricLabel: "conversion lift",
+    stack: ["SQL", "Python", "Statistics"], live: "#", repo: "#" }
+];
+
+const JOURNEY = {
+  experience: [
+    { title: "Operations Executive", org: "Jana Small Finance Bank, Omerga", when: "Sep 2023 to May 2026", status: "done",
+      points: ["Processed 20-50 home loan and insurance files a month with 100% turnaround compliance.",
+               "Tracked a pipeline of 200+ customers and cut average file-to-closure time by about 20%.",
+               "Kept ledgers and cash records with zero reconciliation errors across quarterly audits."] },
+    { title: "Inventory Manager", org: "Subhash Medical, Omerga", when: "Jan 2023 to Aug 2023", status: "done",
+      points: ["Built an inventory control routine that cut overstock and stock-outs by an estimated 30%.",
+               "Kept procurement records audit-ready for vendor reconciliation."] },
+    { title: "Sales Representative", org: "Maitri Pharmaceuticals, Pune", when: "Apr 2021 to Dec 2022", status: "done",
+      points: ["Met or beat monthly and quarterly sales quotas over 21 months.",
+               "Managed a territory portfolio of doctors and pharmacies using visit planning and follow-up data."] }
+  ],
+  certifications: [
+    { title: "Microsoft Power BI Data Analyst (PL-300)", org: "Microsoft", when: "Planned", status: "plan", badge: "Planned",
+      points: ["Planned certification to validate my Power BI skills."] },
+    { title: "B.Sc.", org: "Dr. Babasaheb Ambedkar Marathwada University", when: "Graduated 2021", status: "done", badge: "Completed",
+      points: ["Science degree with a quantitative foundation."] }
+  ]
+};
+
+/* ============ Helpers ============ */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const toastEl = $("#toast");
+let toastTimer;
+function toast(msg) {
+  toastEl.textContent = msg; toastEl.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2400);
+}
+async function copyText(text, okMsg) {
+  try { await navigator.clipboard.writeText(text); toast(okMsg); }
+  catch (e) {
+    const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand("copy"); } catch (_) {}
+    ta.remove(); toast(ok ? okMsg : "Select the text and copy it manually");
+  }
+}
+
+/* ============ Hero chart (one scale for marks, ticks and labels) ============ */
+function renderHeroChart() {
+  const data = [9.9, 9.6, 9.4, 9.0, 8.6, 8.4, 8.1, 7.9];
+  const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"];
+  const W = 340, H = 140, L = 30, R = 28, T = 14, B = 24;
+  const min = 7, max = 10;
+  const x = (i) => L + (i * (W - L - R)) / (data.length - 1);
+  const y = (v) => T + ((max - v) / (max - min)) * (H - T - B);
+  let g = "";
+  [7, 8, 9, 10].forEach((t) => {
+    g += `<line x1="${L}" x2="${W - R}" y1="${y(t)}" y2="${y(t)}" stroke="rgba(255,255,255,0.12)" stroke-width="1" ${t === 7 ? "" : 'stroke-dasharray="2 4"'}/>`;
+    g += `<text class="chart-text" x="${L - 6}" y="${y(t) + 3}" text-anchor="end">${t}</text>`;
+  });
+  labels.forEach((m, i) => { g += `<text class="chart-text" x="${x(i)}" y="${H - 7}" text-anchor="middle">${m}</text>`; });
+  const pts = data.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`);
+  const area = `M${x(0)},${y(min)} L${pts.join(" L")} L${x(data.length - 1)},${y(min)} Z`;
+  const last = data.length - 1;
+  g += `<defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9a8ff" stop-opacity="0.38"/><stop offset="1" stop-color="#c9a8ff" stop-opacity="0"/></linearGradient></defs>`;
+  g += `<path d="${area}" fill="url(#hg)"/>`;
+  g += `<polyline points="${pts.join(" ")}" fill="none" stroke="#c9a8ff" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>`;
+  g += `<circle cx="${x(last)}" cy="${y(data[last])}" r="4.5" fill="#c9a8ff" stroke="#0b0d28" stroke-width="2"/>`;
+  g += `<text x="${x(last)}" y="${y(data[last]) - 10}" text-anchor="end" fill="#f2f2ff" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="500">${data[last]} days</text>`;
+  $("#hero-chart").innerHTML = g;
+}
+
+/* ============ Project thumbnails (decorative dashboard previews) ============ */
+function thumb(kind) {
+  const W = 320, H = 150;
+  let g = `<rect width="${W}" height="${H}" fill="none"/>`;
+  for (let i = 0; i < 3; i++) g += `<circle cx="${14 + i * 12}" cy="14" r="3.5" fill="rgba(255,255,255,0.22)"/>`;
+  g += `<rect x="150" y="9" width="156" height="10" rx="5" fill="rgba(255,255,255,0.08)"/>`;
+  [50, 85, 120].forEach((yy) => { g += `<line x1="20" x2="300" y1="${yy}" y2="${yy}" stroke="rgba(255,255,255,0.08)"/>`; });
+  if (kind === "bars") {
+    [78, 64, 56, 44, 36, 30, 24].forEach((v, i) => {
+      const h = v * 0.95, x = 28 + i * 40;
+      g += `<rect x="${x}" y="${132 - h}" width="26" height="${h}" rx="5" fill="${i === 6 ? "#c9a8ff" : "#7c58e6"}" fill-opacity="${i === 6 ? 1 : 0.75}"/>`;
+    });
+  } else if (kind === "line") {
+    const d = [30, 42, 38, 58, 52, 72, 66, 90, 84, 104];
+    const pts = d.map((v, i) => [24 + i * 30.6, 132 - v]);
+    g += `<defs><linearGradient id="tg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9a8ff" stop-opacity="0.4"/><stop offset="1" stop-color="#c9a8ff" stop-opacity="0"/></linearGradient></defs>`;
+    g += `<path d="M${pts[0][0]},132 L${pts.map((p) => p.join(",")).join(" L")} L${pts[pts.length - 1][0]},132 Z" fill="url(#tg)"/>`;
+    g += `<polyline points="${pts.map((p) => p.join(",")).join(" ")}" fill="none" stroke="#c9a8ff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>`;
+    g += `<circle cx="${pts[9][0]}" cy="${pts[9][1]}" r="4.5" fill="#c9a8ff"/>`;
+  } else {
+    [92, 74, 58, 40, 26].forEach((w, i) => {
+      g += `<rect x="24" y="${34 + i * 21}" width="${w * 2.9}" height="13" rx="6.5" fill="${i === 0 ? "#c9a8ff" : "#7c58e6"}" fill-opacity="${i === 0 ? 1 : 0.7 - i * 0.07}"/>`;
+    });
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Dashboard preview illustration">${g}</svg>`;
+}
+
+/* ============ Skills ============ */
+function renderSkills() {
+  $("#skill-groups").innerHTML = SKILLS.map((g, gi) => `
+    <div class="glass glass-pad">
+      <h3 class="!text-lg">${esc(g.group)}</h3>
+      <div class="flex flex-wrap gap-2 mt-4">
+        ${g.items.map((s, si) => `<button class="chip" type="button" aria-pressed="false" data-g="${gi}" data-s="${si}"><span class="lvl" aria-hidden="true"></span>${esc(s.name)}</button>`).join("")}
+      </div>
+    </div>`).join("");
+  const detail = $("#skill-detail");
+  detail.innerHTML = "Select a skill to see how I use it.";
+  $("#skill-groups").addEventListener("click", (e) => {
+    const btn = e.target.closest(".chip"); if (!btn) return;
+    document.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", "false"));
+    btn.setAttribute("aria-pressed", "true");
+    const s = SKILLS[btn.dataset.g].items[btn.dataset.s];
+    const count = s.tech ? PROJECTS.filter((p) => p.stack.includes(s.tech)).length : 0;
+    detail.innerHTML = `<strong>${esc(s.name)}</strong><br>${esc(s.use)}` +
+      (count ? `<br><button class="btn btn-sm mt-3" type="button" data-filter="${esc(s.tech)}">See ${count} project${count > 1 ? "s" : ""} using it</button>` : "");
+  });
+  detail.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-filter]"); if (!b) return;
+    setFilter(b.dataset.filter, true); $("#projects").scrollIntoView({ behavior: "smooth" });
+  });
+}
+
+/* ============ Projects ============ */
+let activeFilter = null;
+function renderProjects() {
+  const list = activeFilter ? PROJECTS.filter((p) => p.stack.includes(activeFilter)) : PROJECTS;
+  $("#project-grid").innerHTML = list.map((p) => `
+    <article class="glass card">
+      <div class="thumb">${thumb(p.preview)}</div>
+      <div class="body">
+        <div class="flex items-start justify-between gap-3">
+          <h3>${esc(p.title)}</h3>
+          ${p.sample ? '<span class="tag shrink-0" title="Placeholder content. Replace with your real project.">Sample</span>' : ""}
+        </div>
+        <div class="metric">${esc(p.metric)} <small>${esc(p.metricLabel)}</small></div>
+        <dl class="kv">
+          <dt>Problem</dt><dd>${esc(p.problem)}</dd>
+          <dt>Action</dt><dd>${esc(p.action)}</dd>
+          <dt>Result</dt><dd class="result">${esc(p.result)}</dd>
+        </dl>
+        <div class="flex flex-wrap gap-2" role="group" aria-label="Tech stack, tap to filter">
+          ${p.stack.map((t) => `<button class="tech" type="button" data-tech="${esc(t)}" aria-pressed="${t === activeFilter}">${esc(t)}</button>`).join("")}
+        </div>
+        <div class="flex flex-wrap gap-2 mt-auto pt-1">
+          <a class="btn btn-primary btn-sm" href="${esc(p.live)}" target="_blank" rel="noopener">View Live Dashboard</a>
+          <a class="btn btn-sm" href="${esc(p.repo)}" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </div>
+    </article>`).join("");
+  $("#clear-filter").hidden = !activeFilter;
+}
+function setFilter(t, forceOn) { activeFilter = (activeFilter === t && !forceOn) ? null : t; renderProjects(); }
+$("#project-grid").addEventListener("click", (e) => { const b = e.target.closest("[data-tech]"); if (b) setFilter(b.dataset.tech); });
+$("#clear-filter").addEventListener("click", () => { activeFilter = null; renderProjects(); });
+
+/* ============ Timeline ============ */
+function renderTimeline(view) {
+  $("#timeline").innerHTML = JOURNEY[view].map((it) => `
+    <li class="glass t-item ${it.status === "done" ? "done" : ""}">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h3>${esc(it.title)}</h3>
+        ${it.badge ? `<span class="status ${it.status === "done" ? "ok" : it.status === "wip" ? "wip" : ""}">${esc(it.badge)}</span>` : ""}
+      </div>
+      <div class="t-meta">${esc(it.org)} · ${esc(it.when)}</div>
+      <ul>${it.points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
+    </li>`).join("");
+}
+document.querySelectorAll(".tab").forEach((tab) => tab.addEventListener("click", () => {
+  document.querySelectorAll(".tab").forEach((t) => t.setAttribute("aria-selected", String(t === tab)));
+  $("#timeline").setAttribute("aria-labelledby", tab.id);
+  renderTimeline(tab.dataset.view);
+}));
+
+/* ============ Contact ============ */
+function initContact() {
+  $("#email-text").textContent = CONFIG.email;
+  $("#copy-email").addEventListener("click", () => copyText(CONFIG.email, "Email copied"));
+  const status = $("#form-status");
+  $("#contact-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const f = e.target; const name = f.name.value.trim(), email = f.email.value.trim(), message = f.message.value.trim();
+    if (!name || !/^\S+@\S+\.\S+$/.test(email) || !message) { status.textContent = "Please fill in your name, a valid email and a message."; return; }
+    if (CONFIG.formEndpoint) {
+      status.textContent = "Sending...";
+      try {
+        const r = await fetch(CONFIG.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ name, email, message, _subject: "Portfolio message from " + name, _honey: f._honey.value }) });
+        if (!r.ok) throw new Error("bad status");
+        f.reset(); status.textContent = "Thanks, your message was sent.";
+      } catch (_) { status.textContent = "Sending failed. Please email me directly at " + CONFIG.email + "."; }
+    } else {
+      copyText(`From: ${name} <${email}>\n\n${message}`, "Message copied");
+      status.textContent = "This form is not connected yet. Your message is copied, so please paste it into an email to " + CONFIG.email + ".";
+    }
+  });
+}
+
+/* ============ Resume link check ============ */
+async function initResume() {
+  const btn = $("#resume-btn"); let ok = true;
+  try { const r = await fetch(btn.getAttribute("href"), { method: "HEAD" }); ok = r.ok; } catch (_) { ok = false; }
+  if (!ok) btn.addEventListener("click", (e) => { e.preventDefault(); toast("Add resume.pdf next to index.html to enable this"); });
+}
+
+/* ============ Active nav link ============ */
+function initNavSpy() {
+  const links = [...document.querySelectorAll(".pill-nav a")];
+  const secs = links.map((a) => $("#" + a.dataset.sec));
+  const update = () => {
+    const mid = window.innerHeight * 0.35; let current = null;
+    secs.forEach((s) => { if (s && s.getBoundingClientRect().top <= mid) current = s.id; });
+    links.forEach((a) => a.setAttribute("aria-current", String(a.dataset.sec === current)));
+  };
+  window.addEventListener("scroll", update, { passive: true }); update();
+}
+
+/* ============ Boot ============ */
+$("#gh-link").href = CONFIG.github;
+$("#work-link").href = CONFIG.github;
+$("#li-link").href = CONFIG.linkedin;
+$("#year").textContent = new Date().getFullYear();
+renderHeroChart(); renderSkills(); renderProjects(); renderTimeline("experience"); initContact(); initResume(); initNavSpy();
+</script>
